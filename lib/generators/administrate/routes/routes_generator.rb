@@ -22,6 +22,7 @@ module Administrate
         models_without_tables.each do |invalid_model|
           puts "WARNING: Unable to generate a dashboard for #{invalid_model}."
           puts "         It is not connected to a database table."
+          puts "         Make sure your database migrations are up to date."
         end
 
         unnamed_constants.each do |invalid_model|
@@ -71,10 +72,6 @@ module Administrate
 
       def routes_file_path
         File.expand_path(find_in_source_paths("routes.rb.erb"))
-      end
-
-      def resources
-        Administrate::Namespace.new(:admin).resources
       end
     end
   end

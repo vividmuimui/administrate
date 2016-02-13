@@ -11,6 +11,7 @@ module Administrate
       def run_routes_generator
         if dashboard_resources.none?
           call_generator("administrate:routes")
+          load Rails.root.join("config/routes.rb")
         end
       end
 

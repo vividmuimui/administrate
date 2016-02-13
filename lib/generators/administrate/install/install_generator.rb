@@ -14,12 +14,6 @@ module Administrate
         )
       end
 
-      def insert_dashboard_routes
-        unless File.read(rails_routes_file_path).include?(dashboard_routes)
-          route(dashboard_routes)
-        end
-      end
-
       def run_dashboard_generators
         singular_dashboard_resources.each do |resource|
           call_generator("administrate:dashboard", resource)
@@ -42,14 +36,6 @@ module Administrate
         end
 
         DashboardManifest
-      end
-
-      def dashboard_routes
-        File.read(routes_file_path)
-      end
-
-      def rails_routes_file_path
-        Rails.root.join("config/routes.rb")
       end
 
       def routes_file_path

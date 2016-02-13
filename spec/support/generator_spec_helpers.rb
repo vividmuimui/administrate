@@ -5,6 +5,11 @@ require "ammeter/init"
 module GeneratorSpecHelpers
   TEMPLATE_PATH = File.expand_path("../../app_templates", __FILE__)
 
+  def stub_generator_dependencies
+    allow(Rails::Generators).to receive(:invoke)
+    provide_existing_routes_file
+  end
+
   def provide_existing_routes_file
     copy_to_generator_root("config", "routes.rb")
   end

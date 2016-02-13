@@ -58,17 +58,6 @@ describe Administrate::Generators::InstallGenerator, :generator do
       expect(routes).to contain("resources dashboard_resource")
     end
 
-    it "creates a root route for the admin namespace" do
-      stub_generator_dependencies
-      routes = file("config/routes.rb")
-
-      run_generator
-
-      expect(routes).to contain(
-        "root controller: DashboardManifest::ROOT_DASHBOARD, action: :index",
-      )
-    end
-
     it "skips the routes if they've already been generated" do
       stub_generator_dependencies
       insert_generated_routes
@@ -93,11 +82,6 @@ describe Administrate::Generators::InstallGenerator, :generator do
           to invoke_generator("administrate:dashboard", [resource])
       end
     end
-  end
-
-  def stub_generator_dependencies
-    provide_existing_routes_file
-    allow(Rails::Generators).to receive(:invoke)
   end
 
   def insert_generated_routes

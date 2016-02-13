@@ -1,0 +1,7 @@
+namespace :admin do
+    <% resources.each do |resource| %>
+      resources :<%= resource %>
+    <% end %>
+
+    root to: "<%= resources.first %>#index"
+  end

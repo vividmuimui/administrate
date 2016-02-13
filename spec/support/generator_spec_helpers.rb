@@ -34,6 +34,11 @@ module GeneratorSpecHelpers
     end
   end
 
+  def reset_routes
+    Rails.application.routes.clear!
+    load "spec/example_app/config/routes.rb"
+  end
+
   private
 
   def copy_to_generator_root(destination, template)

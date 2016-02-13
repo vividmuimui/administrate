@@ -1,11 +1,18 @@
 require "rails/generators/base"
 require "administrate/generator_helpers"
+require "administrate/namespace"
 
 module Administrate
   module Generators
     class InstallGenerator < Rails::Generators::Base
       include Administrate::GeneratorHelpers
       source_root File.expand_path("../templates", __FILE__)
+
+      def run_routes_generator
+        if dashboard_resources.none?
+          call_generator("administrate:routes")
+        end
+      end
 
       def create_dashboard_controller
         copy_file(
@@ -27,19 +34,7 @@ module Administrate
       end
 
       def dashboard_resources
-        manifest::DASHBOARDS
-      end
-
-      def manifest
-        unless defined?(DashboardManifest)
-          call_generator("administrate:manifest")
-        end
-
-        DashboardManifest
-      end
-
-      def routes_file_path
-        File.expand_path(find_in_source_paths("routes.rb"))
+        Administrate::Namespace.new(:admin).resources
       end
     end
   end

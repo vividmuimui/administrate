@@ -34,7 +34,7 @@ describe Administrate::Generators::InstallGenerator, :generator do
       end
     end
 
-    it "does not invoke the routes generator if namespace routes already exist" do
+    it "does not invoke routes generator if namespace routes already exist" do
       begin
         stub_generator_dependencies
         Rails.application.routes.draw do
